@@ -50,8 +50,9 @@ int board_getBoardStatus(int pos)
 }  
 int board_getBoardCoin(int pos)
 {
+    int coin = board_coin[pos];
     board_coin[pos]=0;
-    return board_coin[pos];
+    return coin;
 }
 void board_initBoard(void)
 {
