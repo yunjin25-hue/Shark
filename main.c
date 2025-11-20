@@ -3,17 +3,17 @@
 #include <time.h>
 #include "board.h"
 
-#define 
+#define MAX_DIE   6
 
 int rolldie(void)
 {
-    return rand()%MAX_DIE+1;
+    return rand()%MAX_DIE + 1;
 }
 
 int main(int argc, char *argv[])
 {
-  int 
-  int  
+  int cnt;
+  int pos;
     
   srand( (unsigned)(time(NULL))); //·£´ý  
   
@@ -26,26 +26,34 @@ int main(int argc, char *argv[])
   board_initboard();
   
   //step 2. turn play (do-while)
+  cnt=0;
+  pos=0;
   do{
-  // 2-1. status printing
-  board_printBoardStatus();
+     int die_result;
+     int coinResult;
+     
+     // 2-1. status printing
+     board_printBoardStatus();
   
-  // 2-2. roll die
-  die_result=rolldie();
+     // 2-2. roll die
+     die_result=rolldie();
   
   
   
-  // 2-3. move (result)
-  pos+=die_result;
+     // 2-3. move (result)
+      pos+=die_result;
+      
+      printf("pos : %i(die:%i)\n",pos,die_result);
   
-  coinResult=board_getBoardCoin([pos);
+      coinResult=board_getBoardCoin(pos);
   
-  printf("coin : %i\n";
+      printf("coin : %i\n",coinResult);
   
-  // 2-4. change turn, shark move
-  }while(cnt<5);
+      // 2-4. change turn, shark move
+       cnt++;
+      }while(cnt<5);
   
-  //step 3. game end (winner printing)
+   //step 3. game end (winner printing)
   
   
   //ending
