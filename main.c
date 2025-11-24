@@ -45,6 +45,7 @@ void printPlayerStatus(void);
              printf("%s : pos %i, coin %i, status %s\n", 
                         player_name[i],
                         player_position[i],
+                        player_coin[i],
                         player_statusString[player_status[i]] );
              printPlayerPosition(i);
      }
@@ -57,12 +58,14 @@ void initPlayer(void)
      {
               player_position[i] = 0;
               player_coin[i] = 0;
-              player_status[N_PLAYER] = PLAYERSTATUS_LIVE;
+              player_status[i] = PLAYERSTATUS_LIVE;
               printf("Player %i's name: ",i);
               scanf("%s",player_name[i]);
               fflush(stdin);
      }
 }
+
+
 
 int rolldie(void)
 {
@@ -74,7 +77,6 @@ int main(int argc, char *argv[])
   int cnt;
   int turn; // 매번 몇 번째 플레이어 턴인지 저장 필요 
   int dum;
-  int coinResult;
     
   srand( (unsigned)(time(NULL))); //랜덤  
   
@@ -87,13 +89,19 @@ int main(int argc, char *argv[])
   board_initboard();
   initPlayer();
   //player init
+  
   //step 2. turn play (do-while)
   cnt=0;
   turn=0;
-  coinResult=0;
   do{
      int die_result;
      
+     
+     if (player_status[turn] != PLAYERSTATUS_LIVE
+     {
+         turn=(turn+1)%N_PLAYER;   
+         continue;        
+     }
      
      // 2-1. status printing
      board_printBoardStatus();
@@ -108,27 +116,38 @@ int main(int argc, char *argv[])
      fflush(stdin);
      die_result=rolldie(); //player turn
   
-  
-  
      // 2-3. move (result) //player turn
       player_position[turn]+=die_result;
+      if(player_position[turn] >= N_BOARD -1) // 한 칸 남았는데 주사위가 6 나오면 배열 넘어가는 문제  
+      {
+           player_position[turn] = N_BOARD-1;
+           player_status[turn] = PLAYERSTATUS_END;
+      } 
       
       printf("Die result : %i, %s moved to %i\n",
                   die_result,die_result[turn],player_position[turn]);
       
-      #if 0
-      coinResult += board_getBoardCoin(pos);
-      printf("coin : %i\n",coinResult);
-      #endif
+      player_coin[turn] += board_getBoardCoin(player_position[turn]);
+      printf("Lucky! %s got %i coins\n",player_name[turn], player_coin[turn]);
+      
       
       // 2-4. change turn, shark move
       //change turn
       turn=(turn+1)%N_PLAYER;
+      
       //shark move
-       cnt++;
-      }while(cnt<5); //game end condition
+      if(turn==0)
+      {
+         int shark_pos = board_stepShark();
+         printf("Shark moved to %i\n", shark_pos);
+         
+         checkDie();
+      }
+      cnt++;
+       
+  }while(cnt<5); //game end condition
   
-   //step 3. game end (winner printing)
+  //step 3. game end (winner printing)
   
   
   //ending
@@ -142,3 +161,6 @@ int main(int argc, char *argv[])
   system("PAUSE");	
   return 0;
 }
+
+// 문제 구역 찾는 법: break point 걸거나 #if 0과 #endif로 코드 막기 
+// --> 코드 막았는데  잘 되면 막힌 부분이 문제!! 
