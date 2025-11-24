@@ -1,21 +1,23 @@
 #if 0
-int board_initBoard(void);
-int board_getBoardStatus(int pos);
 int board_getSharkPosition(void);
-int board_stepShark(void);
-int board_getBoardCoin(int pos);
-void board_printBoardStatus(void);
-#endif
 
-#define N_BOARD                 20
-#define BOARDSTATUS_OK          1
-#define BOARDSTATUS_NOK         0
+#endif
+#include "board.h"
+
+
 #define N_COINPOS               12
-#define MAX_COIN                4               
+#define MAX_COIN                4 
+#define MAX_SHARKSTEP           6              
+
 
 static int board_status[N_BOARD];
 static int board_coin[N_BOARD];
 static int shark_position;
+
+int board_stepShark(void);
+{
+    int step = rand()%MAX_SHARKSTEP + 1; //나머지가 0~5까지 나오는데 최대 6이므로 +1하면 1~6까지 나옴 
+}
 
 void board_printBoardStatus(void)
 {

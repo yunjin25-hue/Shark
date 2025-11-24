@@ -13,21 +13,29 @@
 
 char player_name[N_PLAYER][MAXLENGTH];
 int player_position[N_PLAYER];
-int player_coin[N_PLATER];
+int player_coin[N_PLAYER];
 int player_status[N_PLAYER];
-char player_statusString[3][MAXLENGTH]; = {"LIVE","DIE","END"};
+char player_statusString[3][MAXLENGTH] = {"LIVE","DIE","END"};
 
-void printPlayerPosition(void)
+void printPlayerPosition(int player)
 {
+     int i;
      for(i=0; i<N_BOARD; i++)
      {
        printf("|");
-       if(board_status[i] == BOARDSTATUS_NOK)
-         printf("X");
-       else
-         printf("0");
+       if(i == payer_position[player])
+       {
+            printf("%c",player_name[player][0]");
+       }
+       else 
+       {
+            if(board_getBoardStatus(i)== BOARDSTATUS_OK)
+              print(" ");
+            else
+              printf("X");
+       }
      }
-}
+     printf("\n");
 
 void printPlayerStatus(void);
 {
@@ -35,10 +43,10 @@ void printPlayerStatus(void);
      for(i=0; i<N_PLAYER; i++)
      {
              printf("%s : pos %i, coin %i, status %s\n", 
-             player_name[i],
-             player_position[i],
-             player_statusString[player_status]);
-             printPlayerPosition()
+                        player_name[i],
+                        player_position[i],
+                        player_statusString[player_status[i]] );
+             printPlayerPosition(i);
      }
 }
 
@@ -64,7 +72,8 @@ int rolldie(void)
 int main(int argc, char *argv[])
 {
   int cnt;
-  int turn;
+  int turn; // 매번 몇 번째 플레이어 턴인지 저장 필요 
+  int dum;
   int coinResult;
     
   srand( (unsigned)(time(NULL))); //랜덤  
@@ -93,19 +102,25 @@ int main(int argc, char *argv[])
       printPlayerStatus(); 
   
      // 2-2. roll die
+     printf("%s turn!!", player_name[turn]);
+     printf("Press any key to roll a die!\n");
+     scanf("%d", &dum);
+     fflush(stdin);
      die_result=rolldie(); //player turn
   
   
   
      // 2-3. move (result) //player turn
-      pos+=die_result;
+      player_position[turn]+=die_result;
       
-      printf("pos : %i(die:%i)\n",pos,die_result);
+      printf("Die result : %i, %s moved to %i\n",
+                  die_result,die_result[turn],player_position[turn]);
       
-      coinResult=board_getBoardCoin(pos);
-  
+      #if 0
+      coinResult += board_getBoardCoin(pos);
       printf("coin : %i\n",coinResult);
-  
+      #endif
+      
       // 2-4. change turn, shark move
       //change turn
       turn=(turn+1)%N_PLAYER;
