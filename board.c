@@ -1,7 +1,6 @@
-#if 0
+
 int board_getSharkPosition(void);
 
-#endif
 #include "board.h"
 
 
@@ -10,6 +9,7 @@ int board_getSharkPosition(void);
 #define MAX_SHARKSTEP           6     
 #define SHARK_INITPOS           -4         
 
+//여기까지 많이 바뀜 
 
 static int board_status[N_BOARD];
 static int board_coin[N_BOARD];
@@ -22,7 +22,8 @@ int board_stepShark(void);
     for(i=0; i<step; i++)
     {
        int posIdx = shark_position + i + 1;
-       board_status[posIdx] = BOARDSTATUS_NOK ;        
+       if(posIdx >= 0) // 초기가 -4인데 2칸 나오면 -2되는거 해결 
+         board_status[posIdx] = BOARDSTATUS_NOK ;        
     } 
     shark_position += step;
 }
@@ -31,7 +32,6 @@ void board_printBoardStatus(void)
 {
      
      int i;
-     
      printf("-------------BOARD STATUS---------------\n");
      for(i=0; i<N_BOARD; i++)
      {
@@ -43,7 +43,7 @@ void board_printBoardStatus(void)
      }
      printf("|\n");
      printf("----------------------------------------\n");
-     
+//여기 체크 
      printf("-------------BOARD COIN---------------\n");
      for(i=0; i<N_BOARD; i++)
      {
@@ -62,8 +62,9 @@ int board_getBoardCoin(int pos)
 {
     int coin = board_coin[pos];
     board_coin[pos]=0;
-    return coin;
+    return coin; //여기 다름 
 }
+
 void board_initBoard(void)
 {
     int i;

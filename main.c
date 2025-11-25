@@ -36,6 +36,7 @@ void printPlayerPosition(int player)
        }
      }
      printf("\n");
+}
 
 void printPlayerStatus(void);
 {
@@ -65,7 +66,31 @@ void initPlayer(void)
      }
 }
 
+int gameEnd(void)
+{
+     int i;
+     int flag_end = 1;
+     for(i=0; i<N_PLAYER; i++)
+     {
+              if(player_status[i] == PLAYERSTATUS_LIVE)
+                 flag_end = 0;
+     }
+}
 
+void checkDie(void)
+{
+     int i;
+     
+     for(i=0; i<N_PLAYER; i++)
+     {
+            if(board_getBoardStatus(player_position[i])==BOARDSTATUS_NOK)  
+            { 
+              player_status[i] = PLAYERSTATUS_DIE;
+              printf("So Sad! %s died at position %i\n", 
+                         player_name[i],player_position[i]);
+            }
+     }                                                      
+}
 
 int rolldie(void)
 {
@@ -78,7 +103,7 @@ int main(int argc, char *argv[])
   int turn; // 매번 몇 번째 플레이어 턴인지 저장 필요 
   int dum;
     
-  srand( (unsigned)(time(NULL))); //랜덤  
+  srand( (unsigned)(time(NULL)) ); //랜덤  
   
   //opening
   printf("===============================\n");
@@ -145,7 +170,7 @@ int main(int argc, char *argv[])
       }
       cnt++;
        
-  }while(cnt<5); //game end condition
+  }while(gameEnd() == 0); //game end condition
   
   //step 3. game end (winner printing)
   
