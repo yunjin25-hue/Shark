@@ -30,7 +30,7 @@ void printPlayerPosition(int player)
        else 
        {
             if(board_getBoardStatus(i)== BOARDSTATUS_OK)
-              print(" ");
+              printf(" ");
             else
               printf("X");
        }
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
   printf("===============================\n\n\n");
   
   //step 1. initialization (player name setting, variables)
-  board_initboard();
+  board_initBoard();
   initPlayer();
   //player init
   
@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
      board_printBoardStatus();
     
      //player status(°¢ÀÚ)
-      printPlayerStatus(); 
+     printPlayerStatus(); 
   
      // 2-2. roll die
      printf("%s turn!!", player_name[turn]);
