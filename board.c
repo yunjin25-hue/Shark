@@ -15,7 +15,7 @@ static int board_status[N_BOARD];
 static int board_coin[N_BOARD];
 static int shark_position;
 
-int board_stepShark(void);
+int board_stepShark(void)
 {
     int step = rand()%MAX_SHARKSTEP + 1; //나머지가 0~5까지 나오는데 최대 6이므로 +1하면 1~6까지 나옴 
     int i;

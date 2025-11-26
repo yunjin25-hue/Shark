@@ -23,9 +23,9 @@ void printPlayerPosition(int player)
      for(i=0; i<N_BOARD; i++)
      {
        printf("|");
-       if(i == payer_position[player])
+       if(i == player_position[player])
        {
-            printf("%c",player_name[player][0]");
+            printf("%c",player_name[player][0]);
        }
        else 
        {
@@ -38,7 +38,7 @@ void printPlayerPosition(int player)
      printf("\n");
 }
 
-void printPlayerStatus(void);
+void printPlayerStatus(void)
 {
      int i;
      for(i=0; i<N_PLAYER; i++)
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
      int die_result;
      
      
-     if (player_status[turn] != PLAYERSTATUS_LIVE
+     if (player_status[turn] != PLAYERSTATUS_LIVE)
      {
          turn=(turn+1)%N_PLAYER;   
          continue;        
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
       } 
       
       printf("Die result : %i, %s moved to %i\n",
-                  die_result,die_result[turn],player_position[turn]);
+                  die_result,player_name[turn],player_position[turn]);
       
       player_coin[turn] += board_getBoardCoin(player_position[turn]);
       printf("Lucky! %s got %i coins\n",player_name[turn], player_coin[turn]);
