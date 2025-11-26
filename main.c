@@ -75,6 +75,8 @@ int gameEnd(void)
               if(player_status[i] == PLAYERSTATUS_LIVE)
                  flag_end = 0;
      }
+     
+     return flag_end;
 }
 
 void checkDie(void)
