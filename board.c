@@ -9,7 +9,6 @@ int board_getSharkPosition(void);
 #define MAX_SHARKSTEP           6     
 #define SHARK_INITPOS           -4         
 
-//여기까지 많이 바뀜 
 
 static int board_status[N_BOARD];
 static int board_coin[N_BOARD];
@@ -32,7 +31,7 @@ void board_printBoardStatus(void)
 {
      
      int i;
-     printf("-------------BOARD STATUS---------------\n");
+     printf("\n-------------BOARD STATUS---------------\n");
      for(i=0; i<N_BOARD; i++)
      {
        printf("|");
@@ -43,7 +42,6 @@ void board_printBoardStatus(void)
      }
      printf("|\n");
      printf("----------------------------------------\n");
-//여기 체크 
      printf("-------------BOARD COIN---------------\n");
      for(i=0; i<N_BOARD; i++)
      {
@@ -62,7 +60,7 @@ int board_getBoardCoin(int pos)
 {
     int coin = board_coin[pos];
     board_coin[pos]=0;
-    return coin; //여기 다름 
+    return coin; 
 }
 
 void board_initBoard(void)

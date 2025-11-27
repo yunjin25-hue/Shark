@@ -88,7 +88,7 @@ void checkDie(void)
             if(board_getBoardStatus(player_position[i])==BOARDSTATUS_NOK)  
             { 
               player_status[i] = PLAYERSTATUS_DIE;
-              printf("So Sad! %s died at position %i\n", 
+              printf("So Sad! %s died at position %i\n\n", 
                          player_name[i],player_position[i]);
             }
      }                                                      
@@ -137,8 +137,8 @@ int main(int argc, char *argv[])
      printPlayerStatus(); 
   
      // 2-2. roll die
-     printf("%s turn!!", player_name[turn]);
-     printf("Press any key to roll a die!\n");
+     printf("\n%s turn!!", player_name[turn]);
+     printf("Press any key to roll a die!\n\n");
      scanf("%d", &dum);
      fflush(stdin);
      die_result=rolldie(); //player turn
@@ -224,7 +224,7 @@ int getWinner(void)
    return winner;
 }
 
- printf("\nA number of Alive Player: %d\n, Winner: %d",
+ printf("\nA number of Alive Player: %d, Winner: %d",
                 getAlivePlayer(),getWinner());
 
   //ending
