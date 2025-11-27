@@ -175,8 +175,55 @@ int main(int argc, char *argv[])
   }while(gameEnd() == 0); //game end condition
   
   //step 3. game end (winner printing)
-  
-  
+int game_end(void)
+{
+   int i;
+   int flag_end = 1;
+      
+   //
+   for(i=0; i<N_PLAYER; i++)
+   {
+     if(player_status[i]==PLAYERSTATUS_LIVE)
+     {
+          flag_end=0;
+          break;
+     }
+   }
+   
+   return flag_end;
+}
+
+int getAlivePlayer(void)
+{
+    int i;
+    int cnt=0;
+    for(i=0; i<N_PLAYER; i++)
+   {
+     if(player_status[i]==PLAYERSTATUS_END)
+        cnt++;
+   }
+   
+   return cnt;
+}
+
+int getWinner(void)
+{
+    int i;
+    int winner=0;
+    int max_coin=-1;
+    
+    for(i=0; i<N_PLAYER; i++)
+   {
+     if(player_coin[i] > max_coin)
+     {
+          max_coin = player_coin[i];
+          winner=i;
+     }
+   }
+   
+   return winner;
+}
+
   //ending
   printf("\n\n\n\n\n\n\n");
   printf("===============================\n");
@@ -184,6 +231,9 @@ int main(int argc, char *argv[])
   printf("!!          THE END          !!\n");
   printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
   printf("===============================\n\n");
+  
+  printf("Alive Player: %d, Winner: %s",
+                getAlivePlayer[i],getWinner[i]);
   
   system("PAUSE");	
   return 0;
