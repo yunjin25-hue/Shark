@@ -224,6 +224,9 @@ int getWinner(void)
    return winner;
 }
 
+ printf("\nA number of Alive Player: %d\n, Winner: %d",
+                getAlivePlayer(),getWinner());
+
   //ending
   printf("\n\n\n\n\n\n\n");
   printf("===============================\n");
@@ -232,8 +235,6 @@ int getWinner(void)
   printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
   printf("===============================\n\n");
   
-  printf("Alive Player: %d, Winner: %s",
-                getAlivePlayer[i],getWinner[i]);
   
   system("PAUSE");	
   return 0;
